@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1c1c1c; /* Dark background color */
+            color: #f8f9fa; /* Light text color for contrast */
+        }
+        .movie-poster img {
+            max-width: 100%;
+            border-radius: 10px;
+            height: 200px; /* Adjust the height for smaller posters */
+            object-fit: cover; /* Ensures images fit without distortion */
+            transition: transform 0.3s ease; /* Smooth transition for zoom effect */
+        }
+        .recommendations {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px; /* Add spacing between movie cards */
+        }
+        .movie-card {
+            width: 180px; /* Reduce card width */
+            text-align: center;
+            margin: 5px;
+            transition: transform 0.3s ease; /* Smooth transition for card scaling */
+            background-color: #2a2a2a; /* Dark card background */
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .movie-card p {
+            font-size: 0.9rem; /* Reduce font size for titles */
+            color: #f8f9fa;
+        }
+        .movie-card:hover {
+            transform: scale(1.05); /* Slightly enlarge the card on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Add shadow effect */
+        }
+        .movie-card:hover .movie-poster img {
+            transform: scale(1.1); /* Zoom effect on the poster */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">Movie Recommender System</h1>
+        <form method="POST" class="mb-4">
+            <div class="form-group">
+                <label for="selected_movie">Select a Movie:</label>
+                <select name="selected_movie" id="selected_movie" class="form-control">
+                    {% for movie in movie_list %}
+                        <option value="{{ movie }}">{{ movie }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Show Recommendation</button>
+        </form>
+
+        {% if recommendations %}
+            <h2 class="text-center my-2">Recommendations:</h2>
+            <div class="recommendations">
+                {% for name, poster in recommendations %}
+                    <div class="movie-card">
+                        <p><strong>{{ name }}</strong></p>
+                        <div class="movie-poster">
+                            <img src="{{ poster }}" alt="Movie Poster" class="img-fluid">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

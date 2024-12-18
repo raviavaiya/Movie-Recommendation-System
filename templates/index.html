@@ -52,13 +52,22 @@
         <h1 class="text-center my-4">Movie Recommender System</h1>
         <form method="POST" class="mb-4">
             <div class="form-group">
-                <label for="selected_movie">Select a Movie:</label>
-                <select name="selected_movie" id="selected_movie" class="form-control">
+                <label for="selected_movie">Search or Select a Movie:</label>
+                <input 
+                    type="text" 
+                    name="selected_movie" 
+                    id="selected_movie" 
+                    class="form-control" 
+                    list="movie_list" 
+                    placeholder="Type or select a movie" 
+                    value="{{ selected_movie if selected_movie else '' }}"
+                >
+                <datalist id="movie_list">
                     {% for movie in movie_list %}
-                        <option value="{{ movie }}">{{ movie }}</option>
+                        <option value="{{ movie }}"></option>
                     {% endfor %}
-                </select>
-            </div>
+                </datalist>
+            </div>                    
             <button type="submit" class="btn btn-primary">Show Recommendation</button>
         </form>
 
@@ -81,5 +90,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
 </body>
 </html>

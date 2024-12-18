@@ -31,13 +31,15 @@ similarity = joblib.load('D:\Movie-Recommendation-System\Model\similarity.pkl')
 def index():
     movie_list = movies['title'].values
     recommendations = None
+    selected_movie = None  # Initialize variable
 
     if request.method == 'POST':
-        selected_movie = request.form['selected_movie']
+        selected_movie = request.form['selected_movie']  # Get selected movie
         recommended_movie_names, recommended_movie_posters = recommend(selected_movie)
         recommendations = zip(recommended_movie_names, recommended_movie_posters)
 
-    return render_template('index.html', movie_list=movie_list, recommendations=recommendations)
+    return render_template('index.html', movie_list=movie_list, recommendations=recommendations, selected_movie=selected_movie)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
